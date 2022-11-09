@@ -1,0 +1,24 @@
+server:
+  port: 9999
+  servlet:
+    encoding:
+      charset: UTF-8
+
+#日志配置
+logging:
+  #日志级别
+  level:
+    root: info
+    org.springframework: info
+    com.huma.web3j.websocket: info
+  file:
+    name: ./logs/websocket.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread | %logger{50}[%L] | %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5level | %thread | %logger{50}[%L] | %msg%n"
+  logback:
+    rolling policy:
+      max-file-size: 200MB
+      file-name-pattern: ./logs/websocket-%d{yyyy-MM-dd}-%i.log.gz
+      max-history: 7
+      clean-history-on-start: true
