@@ -2,11 +2,9 @@ package com.huma.web3j.websocket.service;
 
 import com.huma.web3j.websocket.config.SysConfig;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.CertificatePinner;
 import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.websocket.WebSocketClient;
 import org.web3j.protocol.websocket.WebSocketService;
@@ -14,8 +12,8 @@ import org.web3j.utils.Async;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.net.URI;
+
 /**
  * @author hudenian
  * @date 2023/4/11
@@ -42,13 +40,20 @@ public class ClientWeb3Service {
         try {
             return web3j.ethBlockNumber().send().getBlockNumber().longValue();
         } catch (WebsocketNotConnectedException e) {
-            log.error("Error in pending tx subscription. Reconnecting");
+            log.error("Error in get last block. Reconnecting");
             webSocketClient.reconnectBlocking();
             return getLastBlock();
         }
     }
 
     public String getBlockHash() throws Exception {
-        return web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST,false).send().getBlock().getHash();
+        try {
+            return web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send().getBlock().getHash();
+        } catch (WebsocketNotConnectedException e) {
+            log.error("Error in get block hash. Reconnecting");
+            webSocketClient.reconnectBlocking();
+            return getBlockHash();
+        }
+
     }
 }
