@@ -18,4 +18,9 @@ public class WsController {
     public Long getBlock() {
         return GetBlockNumberTask.blockNumberMap.get("blockNumber");
     }
+
+    @GetMapping("/blockHash")
+    public String getBlockHash() {
+        return GetBlockNumberTask.blockHashMap.get("blockNumber");
+    }
 }

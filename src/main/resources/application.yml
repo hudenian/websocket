@@ -22,3 +22,9 @@ logging:
       file-name-pattern: ./logs/websocket-%d{yyyy-MM-dd}-%i.log.gz
       max-history: 7
       clean-history-on-start: true
+
+
+system:
+  config:
+    pollingInterval: 500
+    wsUrl: wss://devnet2openapi.platon.network/ws
