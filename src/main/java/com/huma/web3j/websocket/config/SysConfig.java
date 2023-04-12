@@ -15,5 +15,7 @@ public class SysConfig {
 
     private Long pollingInterval;
     private String wsUrl;
+    private long scanBeginBlockNumber;
+    private String contractAddress;
 
 }

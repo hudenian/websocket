@@ -1,5 +1,6 @@
 package com.huma.web3j.websocket.controller;
 
+import com.huma.web3j.websocket.service.ClientWeb3Service;
 import com.huma.web3j.websocket.task.GetBlockNumberTask;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,5 +23,15 @@ public class WsController {
     @GetMapping("/blockHash")
     public String getBlockHash() {
         return GetBlockNumberTask.blockHashMap.get("blockNumber");
+    }
+
+    @GetMapping("/events")
+    public String getEventQueue() {
+        if (!ClientWeb3Service.eventQueue.isEmpty()) {
+            return ClientWeb3Service.eventQueue.remove();
+        } else {
+            return "还未监听到事件";
+        }
+
     }
 }

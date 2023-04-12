@@ -28,3 +28,5 @@ system:
   config:
     pollingInterval: 500
     wsUrl: wss://devnet2openapi.platon.network/ws
+    scanBeginBlockNumber: 23540156
+    contractAddress: "0x7074c2ab5172457b434d99c6666379ba0c8576fa"
